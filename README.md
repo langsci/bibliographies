@@ -436,11 +436,12 @@ and `@misc` BibTeX entry types.
 	title = {The morphology and phonology of infixation},
 	year = {2003},
 	url = {https://escholarship.org/uc/item/4ds6q618},
+	urldate = {2026-01-22}
 }
 ```
 > Yu, Alan Chi Lun. 2003. *The morphology and phonology of infixation*. 
 > Berkeley: University of California. (Doctoral dissertation). 
-> <https://escholarship.org/uc/item/4ds6q618>.
+> <https://escholarship.org/uc/item/4ds6q618> (22 January 2026).
 
 ```
 @misc{Filppula2013,
@@ -458,10 +459,10 @@ and `@misc` BibTeX entry types.
 ##  BibTeX entry types
 
 The Language Science Press bibliography style supports the following major BibTeX entry types: 
-`@article`, `@book`, `@incollection`, `@phdthesis`,`@mastersthesis`, `@thesis`, `@techreport`,  and
+`@article`, `@book`, `@incollection`, `@phdthesis`,`@mastersthesis`, `@thesis`, `@techreport`, `@inproceedings` and
 `@misc`.
 
-Avoid `@manual`, `@online`, `@unpublished`, `@inproceedings`,  `@inbook`.
+Avoid `@manual`, `@online`, `@unpublished`, `@inbook`.
  
 Do not use these legacy/deprecated BibTeX entry types: 
 `@proceedings`, `@conference`, `@report`, and `@booklet`. 
@@ -473,7 +474,7 @@ Use the `@article` entry type for an article in a journal.
 Some conference proceedings and working paper series are considered serialized journals by 
 their publisher.
 Do not use `@article` for an article-length unpublished manuscript or preprint, especially if 
-there is no serialized journal.
+there is no serialized journal. If the reference has been assigned a DOI, the URL is not mandatory.
 
 ```
 @article{Lastname2025,
@@ -892,7 +893,7 @@ Decapitalization only applies to title-like fields –
 `title`, `booktitle`, `maintitle`, `subtitle` – not other fields such as 
 `author`, `journal`, `series`, `address`, `publisher`, `note`, `howpublished`, and `type`.
 These title-like fields also automatically capitalize the first letter of the title.
-If the title starts with a word styled in lowercase, then protect it from initial caaitalization 
+If the title starts with a word styled in lowercase, then protect it from initial capitalization 
 with braces.
 ```
 title = {Vocabulary in {Native American} languages: {Salish} words},
