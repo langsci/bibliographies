@@ -48,13 +48,40 @@ The key cannot contain certain characters: space ` `; ampersand `&`; comma `,`;
 quotes `"`, `'`; backslash `\`; percent `%`; and braces and brackets `{`, `}`, `[`, `]`.
 
 The BibTeX entry has field/value pairs. 
-The fields `author`,  `title`,  and `date` are generally required for all entries.
+The fields `author`,  `title`,  and `year` are generally required for all entries.
 Conventionally, values are enclosed in braces, `{...}`.
 The final field/value pair can omit the separating comma after the value.
 
 Values can be enclosed in double quote marks, and some numeric values can be unbraced, 
 but Language Science Press prefers braced values.
-Some values – like `crossref` values and `@string` names – must be unbraced. 
+
+
+## Full first names
+
+Please provide full first names for authors and editors, so 
+
+```
+author = {Noam Chomsky}
+*author = {Noam Chomsky}
+```
+
+Middle initials do not have to be expanded
+
+```
+author  = {Larry M. Hyman}
+*author  = {Larry Michael Hyman}
+```
+
+Some people use their second name as their full name. There is no need to expand the first name then. 
+
+```
+author = {D. Robert Ladd}
+*author = {Dwight Robert Ladd}
+```
+
+Some authors have pen names which consist only of initials. Most notable are R. M. W. Dixon, 
+N. J. Enfield, M. A. K. Halliday and A. E. Meussen. Do not use expanded names for these authors. 
+
 
 ## Workflow
 
@@ -62,7 +89,7 @@ Please deliver a BibTeX file with all your references together with your submiss
 BibTeX can be exported from all common bibliography tools. 
 
 Use a reference manager. 
-Language Science Press recommends BibDesk for the Mac and JabRef for all other platforms.
+Language Science Press recommends JabRef. On Mac, you can also use BibDesk.
 
 Each Language Science Press book has a single BibTeX file named `localbibliography.bib`.
 Bibliography files of papers/chapters by contributors in an edited volumes are collated and 
@@ -70,12 +97,13 @@ reconciled by the volume editors or the Language Science Press team.
 
 ### LaTeX skeletons
 
-When using a LaTeX template or skeleton from Language Science Press, ...
+When using a LaTeX template or skeleton from Language Science Press, use the file `localbibliography.bib` 
+provided there. There are some dummy entries in that file. You can delete them and add your own entries instead. 
 
 ### Zotero
 
 If using Zotero and Better BibTeX, then change these settings from their default.
-Set “Export unicode as plain-text latex commands” to `yes`.
+Set “Export unicode as plain-text latex commands” to `no`.
 Set “When an item has both a DOI and a URL, export” to `DOI`.
 
 ## LaTeX encoding
@@ -119,7 +147,7 @@ In an English bibliography, a non-English `title` can be given in the original s
 or in English transliteration, or both, or with an English translation.
 Note that `title` font style depends on kind of title: a book title is italic, and 
 an article title is roman.
-Use the `titleddon` field (which is always in roman) for a translation, 
+Use the `titleaddon` field (which is always in roman) for a translation, 
 and put the translation in square brackets.
 Conventionally, the original script title is in parentheses after an Englsh transliteration.
 That is, “Transliteration (Original script) \[Translation\]”.
@@ -188,10 +216,7 @@ The basic commands for citations are `\citep{}`, `\citet{}`, and `\citealt{}`.
 #### Et al.
 
 When there are three or more authors, the citation will print the first author’s name and “et al.”.
-Do not write “et al.” in a BibTeX entry.
-If there references by a same first author with different groups of coauthors, in the same 
-year, then the citation will print other coauthor names to disambiguate the group, e.g., 
-“Smith, Jones et al. (2025)” and “Smith, Lee et al. (2025)” instead of “Smith et al. (2025)”.  
+Do not write “et al.” in a BibTeX entry. 
 
 ### Citation examples
 
@@ -214,17 +239,20 @@ This is a claim (see Erdal 2007 and especially Yu 2003: 12).
 
 #### Possessive citations
 
-Use `\citeauthor{}` and `\citeyear{}` to build a possessive citation like 
+Use `\citeagen{}`  to build a possessive citation like 
 “Smith’s (2025) claim ...”.
 
-`\citeauthor{Erdal2007}'s (\citeyear{Erdal2007}) claim is true.`  
+`\citegen{Erdal2007} claim is true.`  
 Erdal’s (2007) claim is true.
 
-`\citeauthor{MalingZaenen1985}'s (\citeyear{MalingZaenen1985}) claim is true.`  
+`\citegen{MalingZaenen1985} claim is true.`  
 Maling & Zaenen’s (1985) claim is true.
 
-`\citeauthor{JohnsonEtAl1989}'s (\citeyear{JohnsonEtAl1989}) claim is true.`  
+`\citegen{JohnsonEtAl1989} claim is true.`  
 Johnson et al.’s (1989) claim is true.
+
+Use \citeapo{} if you only need the apostrophe, like in "Jones' (1990) claim"
+
 
 ### Page citations
 
@@ -242,7 +270,7 @@ This is claimed to be true (Yu 2003: 12, Maling & Zaenen 1985: 34).
 
 Do not use the abbreviations `p.` or `pp.` or `ff.` or `f.` to specify page citations. 
 Always use the exact page number or range.
-A page range is encoded in LaTeX with two dashes `--`, e.g. `12--14`, 
+A page range is encoded in LaTeX with two hyphens `--`, e.g. `12--14`, 
 or a literal en dash `–` (U+2013), e.g. `12–14`. 
 In a page range, do not truncate the second numeral for the end of the range, e.g. \*`12--4`. 
 
@@ -256,41 +284,7 @@ Use the section symbol `§` as appropriate.
 \citet[§2.1]{Smith2025}
 \citet[footnote 2]{Smith2025}
 \citet[fn. 2]{Smith2025}
-```
-
-#### Citation hyperlink anchor text
-
-With an in-text page citation `\citet[...]{...}`, the author name(s), the opening parenthesis, 
-and the year are hyperlinked as the anchor test to the reference in the References at the end 
-of the chapter/book, but the hyperlinked text does not include the page number (or whatever was
-inside the square brackets) and the closing parenthesis.
-This is recommended over building a citation with `\citeauthor{}`.
-With an in-text page citation with two more more keys, the hyperlinked text does not include 
-the closing parenthesis.
-This linking behavior is by design of the Language Science Press citation style.
-Avoid using `\citet{}` with two or more keys.
-```
-\citet{Yu2003}
-\citet[12]{Yu2003}
-*\citeauthor{Yu2003} (\citeyear{Yu2003}: 12)
-*\citeauthor{Yu2003} (2003: 12)
-
-*\citet{Yu2003,MalingZaenen1985}
-\citet{Yu2003}, \citet{MalingZaenen1985}
-\citep{Yu2003,MalingZaenen1985}
-```
-> [Yu (2003)](https://langsci-press.org/)   
-> [Yu (2003](https://langsci-press.org/): 12)   
-> [Yu](https://langsci-press.org/) ([2003](https://langsci-press.org/): 12)   
-> [Yu](https://langsci-press.org/) (2003: 12)   
->  
-> [Yu (2003](https://langsci-press.org/)), [Maling & Zaenen (1985](https://langsci-press.org/))  
-> [Yu (2003)](https://langsci-press.org/), [Maling & Zaenen (1985)](https://langsci-press.org/)  
-> ([Yu 2003](https://langsci-press.org/), [Maling & Zaenen 1985](https://langsci-press.org/))  
-
-These examples show hyperlink anchor text behavior, and the hyperlink targets are 
-necessarily fake. These guidelines do not show citations hyperlinks in other examples.
-
+``` 
 ### Parentheses
 
 Use `\citep{}` for a list of citations in parentheses, such as at the end of a sentence.
@@ -298,7 +292,7 @@ Use `\citep{}` for a list of citations in parentheses, such as at the end of a s
 `This is claimed to be true \citep{Yu2003,MalingZaenen1985}.`  
 This is claimed to be true (Yu 2003, Maling & Zaenen 1985).
 
-No double parentheses! Do not use `\citep{}` within parentheses. 
+Avoid `\citep{}` within parentheses unless there are several lines between opening and closing parenthesis. 
 Instead, use `\citealt{}` to build a parenthetical remark.
 
 `This is claimed to be true (see \citealt{Yu2003} and also \citealt{MalingZaenen1985}).`  
@@ -333,30 +327,13 @@ small village\\
 	small	village
 	‘a small village’
 </pre></p>
-
-In the context of a linguistic example, for a citation to non-contiguous pages, 
-use a semicolon, not a comma. 
-For example, this citation is to pages 19 and 63.
-```
-\ea
-\langinfo{Zulu}{}{\citealt[19; 63]{PoulosBosch97}}\\
-\gll Shay-a inja!\\
-hit-IMP.2SG dog\\
-\glt ‘Hit the dog!’
-\z
-```
-<p><pre>
-(2)	Zulu (Poulos & Bosch 1997: 19; 63)  
-	<i>Shay-a		inja!</i>
-	hit-IMP.2SG	dog
-	‘Hit the dog!’
-</pre></p>
+ 
 
 ### Common abbreviations
 
 Some abbreviations are commonly used with in-text citations.
 Pay attention to their meanings.
-Do not use italic for Latin abbreviations commonly used in English.
+Do not use italics for Latin abbreviations commonly used in English.
 
 | Abbreviation | Meaning |
 | :--- | :--- |
@@ -392,11 +369,10 @@ the resource.
 ### Citations to this volume
 
 In a collected volume, it is common for one paper/chapter in the volume to cite another 
-paper/chapter in the same volume, especially in an introductory chapter written by the 
-volume editors.
-To do this, ...
+paper/chapter in the same volume. The LangSci skeleton autogenerates a bib file for this. This file
+contains the keys `chapters/smith`, `chapters/jones` etc, and these can be cited via `\citet{chapters/smith} 
+claims ...`. This will add "[this volume]" or "this volume" after the entry, depending on the command used.
 
-See [This volume](#this-volume).
 
 ## References
 
@@ -481,13 +457,15 @@ and `@misc` BibTeX entry types.
 
 ##  BibTeX entry types
 
-The Language Science Press bibliography style supports many BibTeX entry types: 
-`@article`, `@book`, `@incollection`, `@inproceedings`, `@inbook`, `@phdthesis`,
-`@mastersthesis`, `@thesis`, `@techreport`, `@manual`, `@online`, `@unpublished`, and
+The Language Science Press bibliography style supports the following major BibTeX entry types: 
+`@article`, `@book`, `@incollection`, `@phdthesis`,`@mastersthesis`, `@thesis`, `@techreport`,  and
 `@misc`.
 
+Avoid `@manual`, `@online`, `@unpublished`, `@inproceedings`,  `@inbook`.
+ 
 Do not use these legacy/deprecated BibTeX entry types: 
 `@proceedings`, `@conference`, `@report`, and `@booklet`. 
+
 
 ### Article
 
@@ -579,21 +557,7 @@ Contact Language Science Press to enable support for the `issuetitle` and `edito
 > Edward J. Vajda & Gregory D. S. Anderson (eds.). 12–39. 
 > DOI: [10.1524/stuf.2003.56.12.12](https://doi.org/10.1524/stuf.2003.56.12.12)
 
-#### In press
-
-Use `@article` only for a paper published in a journal. 
-Use `@misc` instead for manuscripts submitted to a journal, or in review at a journal, 
-or with any status other than published by the journal.
-If the journal has a status like “Online first”, “Early view” or “Article in press” 
-for published papers that are not yet assigned to a volume, then do use the `@article` entry type 
-and use the `note` field, not the `volume` field, for this information. Set the `year` field to 
-the year that the article was first available online from the journal.
-```
-note = {Online first},
-*volume = {In press},
-```
-
-See also [Publication status](#publication-status).
+ 
 
 ### Book
 
@@ -682,15 +646,14 @@ Use `@book` instead.
 }
 ```
 
-Use `@incollection` for an article/chapter in an edited book. 
-Use `@inproceedings` for a paper in a proceedings volume. 
+Use `@incollection` for an article/chapter in an edited book. Use this for proceedings, too.
 Use `@inbook` for a part of a book, such as a foreword, written by a contributor different 
 than the author of the book.
 The fields `author`, `title`, and `pages` are required to identify the article/chapter/paper, 
 and the fields `booktitle` and `year` are required to identify the book. 
 With `@incollection`, the fields `editor`, `publisher`, and `address` for the book are 
 required. 
-For a proceedings paper with `@inproceedings`, the fields `editor`, `publisher`, `address`, and 
+For a proceedings paper, the fields `editor`, `publisher`, `address`, and 
 `pages` should be given if available, and `publisher` and `address` can be interpreted as the 
 organizer and location, respectively, of the conference. 
 For a contribution in a book, use `bookauthor` to identify the author of the book, 
@@ -703,7 +666,7 @@ for the book.
 
 Do not use the `@conference` entry type. 
 The `@conference` entry type is deprecated, once intended for a conference contribution, 
-and now a conference paper is better formatted as an `@inproceedings` entry.
+and now a conference paper is better formatted as an `@incollection` entry.
 
 ### Theses
 
@@ -726,125 +689,9 @@ See [Thesis type](#thesis-type), [School](#school), and [Address](#address).
 > Ashby, Michael George. 2016. *Experimental phonetics in Britain, 1890–1940*. 
 > Oxford: University of Oxford. (Doctoral dissertation).
 > <https://ora.ox.ac.uk/objects/uuid:d8bbffae-8a4e-478e-ba65-0f5a5bbd66e1>.
-
-### Technical reports
-
-Use `@techreport` for a report prepared for an institution.
-The fields `author`, `title`, and `year` are required to identify ther report.
-Use the fields `institution` and `address` to idenfify the institution that 
-the report was prepared for, or that sponsored the work.
-
-By default, the label “Tech. rep.” will be displayed in the reference.
-To override this, use the `type` field to specify the label used by the institution for its reports,
-e.g. `type = {Working paper},`, 
-and use the `number` field to identify the sequential identifier of the report.
-
-Do not include the `month` field for a `@techreport`.
-Instead use the `urldate` field to indicate a date for the report.
-
-Language Science Press prefers the `institution` field instead of the `organization` field.
-
-```
-@techreport{Franz1990,
-	address = {Pittsburgh},
-	author = {Franz, Alex},
-	institution = {Carnegie Mellon University, Laboratory for Computational Linguistics},
-	number = {CMU-LCL-90-3},
-	title = {A parser for {HPSG}},
-	type = {Report},
-	doi = {10.1184/R1/6490757.v1},
-	year = {1990}
-}
-```
-> Franz, Alex. 1990. *A parser for HPSG*. Report CMU-LCL-90-3. 
-> Pittsburgh: Carnegie Mellon University, Laboratory for Computational Linguistics. 
-> DOI: [10.1184/R1/6490757.v1](https://doi.org/10.1184/R1/6490757.v1).
-
-For an unpublished manuscript such as a preprint, if the manuscript is not a technical report and 
-there there is no meaningful label to use for the `type` field, then use `@misc`, not `@techreport`, 
-for the manuscript.
-
-#### Report
-
-Do not use the `@report` Bibtex entry type.
-Use `@techreport` instead. 
-
-### Manual
-
-Use the `@manual` entry for any book that is, essentially, a manual, such as an 
-instruction manual for software.
-Anything that can be formatted as a `@manual` entry can be forrmatted as a 
-`@book` entry, and the references would be nearly identical.
-
-```
-@manual{R2025manual,
-	address = {Vienna},
-	author = {{R Core Team}},
-	organization = {R Foundation for Statistical Computing},
-	title = {R: {A} language and environment for statistical computing},
-	url = {https://www.R-project.org/},
-	year = {2025}
-}
-@book{R2025book,
-	address = {Vienna},
-	author = {{R Core Team}},
-	publisher = {R Foundation for Statistical Computing},
-	title = {R: {A} language and environment for statistical computing},
-	url = {https://www.R-project.org/},
-	year = {2025}
-}
-```
-> R Core Team. 2025. *R: A language and environment for statistical computing*. 
-> R Foundation for Statistical Computing. Vienna. https://www.R-project.org/.
->
-> R Core Team. 2025. *R: A language and environment for statistical computing*.
-> Vienna: R Foundation for Statistical Computing. https://www.R-project.org/.
-
-### Online
-
-Use `@online` for an online resource that is not better interpreted as e.g. `@article`, `@book`, 
-`@phdthesis`, or `@incollection`.
-
-Regular publications that are available online are not treated in a special way, as
-this applies to more and more publications anyway.
-When citing a web resource that is not a regular scientific publication, this
-should be treated like a book, to the extent that this is possible.
-Internet publications should list the DOI if it is available. 
-In these cases, the URL is not listed.
-
-Do/Do not use the `urldate` field just to indicate the date the resource was accessed.
-Do/Do not use the `urldate` field to indicate the date of publication of the resource, 
-if day and month are worth mentioning.
-
-```
-@online{Francia2020,
-	author= {Francia, Marika},
-	title = {Survey of it. qualunque},
-	url = {https://docs.google.com/spreadsheets/d/1NUxcdi2wbThFbaLpKActyyjIApJClirR},
-	year   = {2020},
-}
-@online{six_nations_lands_and_resources_haldimand_2008,
-	title = {The {Haldimand Treaty} of 1784},
-	url = {https://www.sixnations.ca/LandsResources/HaldProc.htm},
-	author = {{Six Nations Council}},  
-	year = {2008},
-}
-```
-> Francia, Marika. 2020. Survey of it. qualunque. 
-> <https://docs.google.com/spreadsheets/d/1NUxcdi2wbThFbaLpKActyyjIApJClirR>.  
->
-> Six Nations Council. 2008. *The Haldimand Treaty of 1784*. 
-> <https://www.sixnations.ca/LandsResources/HaldProc.htm>.
-
-### Unpublished
-
-An unpublished manuscript can be formatted with `@unpublished` or `@misc`.
-With `@unpublished`, the `title` is in roman in the reference, like an article title, 
-while with `@misc`, the `title` is in italic in the reference, like a book title.
-
-If the unpublished manuscript has no date of publication, then leave the `year` field empty 
-and use the `pubstate` field to describe the publication status. 
-See [Publication status](#publication-status).
+ 
+ 
+  
 
 #### Eprint
 
@@ -971,7 +818,7 @@ Do not use the `institute`, `publisher`, and `location` fields with `@misc`.
 
 ```
 title booktitle maintitle subtitle author editor year edition series
-journal volume number pages address publisher doi url urldate schoool
+journal volume number pages address publisher doi url urldate school
 type note
 ```
 
@@ -1006,33 +853,31 @@ For a group or institutional name, or a person’s name that cannot be inverted 
 in the English bibliographic style, use a second pair of curly braces around the entire name.
 
 A name in a second script can be given in parentheses, but take care to put it after the surname 
-or given name in the BibTeX file so that it is displayed after the name in the displayed reference.
+or given name in the BibTeX file so that it is displayed after the name in the displayed reference. 
+You can control how the name appears in the text via `shortauthor={}`
 
 Do not omit space between initials. 
 Do not add LaTeX spacing commands such as `~` or `\` after a period.
-
-Do not use the sortname field, unless you use it systematically and contact
-Language Science Press first.
+ 
 
 ```
 author = {Pérez Hernández, Lorena and Ruiz de Mendoza, Francisco José},
+
 author = {{R Core Team}},
+
 author = {Dixon, R. M. W.},
+
 author = {É. Kiss, Katalin},
+
 editor = {van Riemsdijk, Henk},
+
 editor = {Hamilton, Rev. William},
+
 author = {Chen, Shu-chuan (陳淑娟)},
+shortauthor = {Chen},
+
 author = {{Ngũgĩ wa Thiong’o}},
-```
-
-#### Contributor fields
-
-The Language Style Press bibliography style does support BibLaTeX contributor fields for 
-fine control of how contributors/editors are displayed in references. 
-These fields include `editora`, `editorb`, `translator`, `commentator`, `annotator`, `foreword`, `introduction`, `afterword`, and `contributor`, and are not further described in these guidelines.
-The field `editortype` (and `editoratype` and `editorbtype`) can be used, with its 
-controlled vocabulary list: `editor`, `compiler`, `founder`, `continuator`, `redactor`,
-`reviser`, `collaborator`, `commentator`, `annotator`,  `introduction`, `afterword`, `foreword`.
+``` 
 
 ### Title
 
@@ -1057,14 +902,15 @@ booktitle = {Proceedings of the 22nd {Amsterdam} Colloquium}},
 booktitle = {The structure of phonological representations, {P}art {II}},
 ```
 
+There is a preference to put braces around the full word for proper nouns, which are always capitalized 
+like `A grammar of {Turkish}`, and to only capitalize the first letter where capitalization depends on context, 
+like ``Syntax and morphology: {W}here the two meet`
+
 ### Year
 
 The `year` is required for all references.
 
 Use a range of years for a cited work when that is most appropriate.
-
-Do/Do not use a range with a word like `present`, e.g. `year = {1843--present}`, 
-if that is most appropriate for the cited work.
 
 As a numeral, the year value can be unbraced, but Language Science Press prefers braced field 
 values.
@@ -1106,28 +952,14 @@ in Language Science Press style.
 
 Do not use the `origdate` field to provide a different date of publication.
 The `origdate` value is not printed in the reference if the `year` is already set.
-
-Do/Do not append a year in square brackets to indicate the orginal date of publication.
-Do/Do not use a slash to indicate the orginal date of publication.
+ 
 
 #### Publication status
 
 Do not use any phrase such as “In press”, “Submitted”, “In review”, “Accepted”, “In prepration”, 
 “Unpublished”, or “Forthcoming” as the value of the `year` field for an unpublished work.
-Instead, leave the `year` field empty and set the `pubstate` field to the corresponding 
-controlled vocabulary value, e.g. `pubstate = {inpress},`.
+Instead, leave the `year` field empty and set the `pubstate` field to  `forthcoming`. Do not use "in press" or any other value. 
 
-| `pubstate` controlled vocabulary value | Publication status in reference/citation | Meaning |
-| - | - | - |
-| `inpress` | In press | Accepted and awaiting publication | 
-| `submitted` | Submitted | Submitted but not yet accepted |
-| `inreview` | In review | Under/in review |
-| `accepted` | Accepted | Accepted for publication |
-| `inpreparation` | In preparation | Being written or prepared |
-| `unpublished` | Unpublished | Not formally published |
-| `forthcoming` | Forthcoming| Scheduled for future publication |
-
-```
 \citep{Smithinreview}
 
 @book{Smithinreview,
@@ -1135,21 +967,8 @@ controlled vocabulary value, e.g. `pubstate = {inpress},`.
 	title = {Title of book},
 	publisher = {Language Science Press},
 	address = {Berlin},
-	pubstate = {inreview},
-}
-```
-> Smith (In review)  
->  
-> Smith, Alex. In review. *Title of book*. Berlin: Language Science Press.
-
-#### This volume
-
-In Language Science Press style, the cue “This volume” is added in citations to papers/chapters
-in the same volume. 
-Authors do not need to do anything to their citation commands or BibTeX entries in order to 
-enable this. 
-This is done by the Language Science Press team when the final BibTeX entries for 
-papers/chapters, with correct pagination, are set in the volume’s `localbibliography.bib` file.
+	pubstate = {forthcoming},
+} 
 
 ### Series and number
 
@@ -1161,15 +980,11 @@ Do not use braces to protect capitals in the `series` name; this is not necessar
 A non-English `series` name can be written with that language’s conventional capitalization 
 and punctuation even with Latin script.
 
-Do/Do not use an initialism for a well-known series.
+Do not use initials for series, but write down the full name of the series in Title Case.
 
 Provide a `series` name without a `number` value if that is not known or set by the publisher, 
 but do try to determine the `number`.
-
-Find the `series` name and `number` of any Language Science Press book on its cover page.
-
-If there is more than one series worth mentioning for a book, then list all series information 
-in the `series` value, without using the `number` field.
+  
 
 Avoid mentioning the series editor (*Reihenherausgeber*). 
 Do not try to use the `serieseditor` field.
@@ -1193,7 +1008,7 @@ Do not try to use the `serieseditor` field.
 
 ### Journal
 
-The `journal` name is capitalized in title case (capitalize all lexical words) in English. 
+The `journal` name is capitalized in Title Case (capitalize all lexical words) in English. 
 Do not use braces to protect capitals in the `journal` name; this is not necessary. 
 A non-English `journal` name can be written with that language’s conventional capitalization and 
 punctuation even in Latin script.
@@ -1308,26 +1123,14 @@ not italic as part of the title itself.
 Identify the degree-granting `school` for a `@phdthesis`, `@mastersthesis`, or `@thesis`.
 
 If applicable, put the department after the school, e.g. 
-`school = {Carnegie Mellon University, Laboratory for Computational Linguistics},`
-
-### Institution
-
-Identify the `institution` for a `@techreport`, when the cited work is better 
-classified as a `@techreport` than a `@book` with a `publisher`.
-
-If applicable, put the department after the institution, e.g. 
-`institution = {Carnegie Mellon University, Laboratory for Computational Linguistics},`
+`school = {Carnegie Mellon University, Laboratory for Computational Linguistics},` 
 
 ### Address
 
 Use `address` for the city, without indication of state, province, or country.
 If a publisher is associated with several cities, give only the first city.
-
-The `address` should use the English spelling of the city, even if cited work is not in English, 
-unless you think this looks too weird.
-
-Please provide some `address` for any BibTeX entry with a `publisher`, `school`, `organization`, 
-or `institution` field, even if the city is already evident in that field.
+ 
+Please provide some `address` for any BibTeX entry with a `publisher`  field, even if the city is already evident in that field.
 
 ```
 publisher = {Mouton de Gruyter},
@@ -1459,23 +1262,16 @@ Provide an URL in the `url` field when the referenced work is available at that 
 A DOI is strongly preferred over an URL; do not provide an URL if a DOI is available.
 Use a complete URL, with the prefix `https://` or `http://`, not just a domain.
 
-Provide an `urldate` only if the URL is time-sensitive, or not likely permanent.
-Do not provide an `urldate` for stable URLs, such as those at `jstor.org` or those provided by 
-a publisher.
-Do not use `urldate` for the date accessed or date retrieved if the URL is stable.
-When referencing a software package with a version number, do not provide an `urldate` for the URL.
+Provide an `urldate`  for all URLs.
 
 For any `urldate`, use the numeric format `yyyy-mm-dd`, e.g. `urldate = {2024-12-25}` 
 in the BibTeX entry. 
 In the reference list, the `urldate` is displayed by the Language Science Press bibliography style 
 as e.g. “(25 December, 2024)” at the end of the reference.
 
-Do/Do not use the `note` field to provide information that could be provided in the 
+Do not use the `note` field to provide information that could be provided in the 
 `url` and `uldate` fields.
-
-Use the `urldate` field to specify a day and month of publication of the reference, 
-if this is essential for the reference. Usually, only the `year` is required for a reference.
-
+ 
 Please trim the `url` value to its clean, stable form. 
 Remove any inessential parts after  `?`, `&`, or `#` such as search terms, tracking codes, 
 or text highlights.
