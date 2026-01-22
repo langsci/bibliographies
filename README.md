@@ -62,7 +62,7 @@ Please provide full first names for authors and editors, so
 
 ```
 author = {Noam Chomsky}
-*author = {Noam Chomsky}
+*author = {N. Chomsky}
 ```
 
 Middle initials do not have to be expanded
@@ -199,6 +199,7 @@ The basic commands for citations are `\citep{}`, `\citet{}`, and `\citealt{}`.
 
 | Source | Output |
 | :--- | :--- |
+| `\cite{Yu2003}` | Yu 2003 |
 | `\citep{Yu2003}` | (Yu 2003) |
 | `\citep[12]{Yu2003}` | (Yu 2003: 12) |
 | `\citep{Erdal2007,Yu2003}` | (Erdal 2007, Yu 2003) |
@@ -210,8 +211,7 @@ The basic commands for citations are `\citep{}`, `\citet{}`, and `\citealt{}`.
 | `\citealt[12]{Yu2003}` | Yu 2003: 12|
 | `\citeauthor{Yu2003}` | Yu |
 | `\citeyear{Yu2003}` | 2003 |
-| `\citetitle{Yu2003}` | “Morpology Africa” |
-| \*`\cite{Yu2003}` | Yu 2003|
+| `\citetitle{Yu2003}` | *Morpology Africa* |
 
 #### Et al.
 
@@ -231,10 +231,10 @@ See the claim in Maling & Zaenen (1985: 12).
 
 #### Complex parenthetical citations
 
-Use `\citealt{}` to build a parenthetical citation remark that is anything more complex 
+Use `\cite{}` or `\citealt{}` to build a parenthetical citation remark that is anything more complex 
 than a comma-separated list of citations.
 
-`This is a claim (see \citetalt{Erdal2007} and especially \citealt[12]{Yu2003}).`  
+`This is a claim (see \citealt{Erdal2007} and especially \citealt[12]{Yu2003}).`  
 This is a claim (see Erdal 2007 and especially Yu 2003: 12).
 
 #### Possessive citations
