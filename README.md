@@ -239,7 +239,7 @@ This is a claim (see Erdal 2007 and especially Yu 2003: 12).
 
 #### Possessive citations
 
-Use `\citeagen{}`  to build a possessive citation like 
+Use `\citegen{}`  to build a possessive citation like 
 “Smith’s (2025) claim ...”.
 
 `\citegen{Erdal2007} claim is true.`  
